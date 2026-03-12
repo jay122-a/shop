@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Local Shop</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f8f8f8;
+}
+
+/* Header */
+
+header{
+display:flex;
+justify-content:space-between;
+padding:15px 20px;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-weight:600;
+font-size:20px;
+}
+
+.tagline{
+font-size:12px;
+color:#777;
+}
+
+/* Hero */
+
+.hero{
+height:80vh;
+background:url("https://i.ibb.co/bR8R0BvV/IMG-0895.jpg") center/cover no-repeat;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:40px;
+background:rgba(0,0,0,0.5);
+padding:20px;
+border-radius:10px;
+}
+
+.shop-btn{
+margin-top:15px;
+display:inline-block;
+padding:12px 25px;
+background:#ff6b00;
+color:white;
+text-decoration:none;
+border-radius:25px;
+}
+
+/* Products */
+
+.products{
+padding:40px 20px;
+}
+
+.products h2{
+margin-bottom:20px;
+}
+
+.carousel{
+display:flex;
+overflow-x:auto;
+gap:20px;
+scroll-snap-type:x mandatory;
+}
+
+.product{
+min-width:220px;
+background:white;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+padding:15px;
+scroll-snap-align:start;
+}
+
+.product img{
+width:100%;
+border-radius:8px;
+}
+
+.product h4{
+margin:10px 0;
+}
+
+.price{
+color:#ff6b00;
+font-weight:600;
+}
+
+.add-btn{
+margin-top:10px;
+background:#000;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* Cart Icon */
+
+.cart-icon{
+position:fixed;
+top:20px;
+right:20px;
+background:black;
+color:white;
+width:50px;
+height:50px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+z-index:999;
+}
+
+.cart-count{
+position:absolute;
+top:-5px;
+right:-5px;
+background:red;
+color:white;
+width:20px;
+height:20px;
+border-radius:50%;
+font-size:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* Cart Drawer */
+
+.cart{
+position:fixed;
+right:-400px;
+top:0;
+width:320px;
+height:100%;
+background:white;
+box-shadow:-5px 0 15px rgba(0,0,0,0.2);
+padding:20px;
+transition:0.3s;
+overflow:auto;
+z-index:1000;
+}
+
+.cart.active{
+right:0;
+}
+
+.cart h3{
+margin-bottom:15px;
+}
+
+.cart-item{
+margin-bottom:10px;
+font-size:14px;
+}
+
+/* Order Form */
+
+.order-form input{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+.send-btn{
+margin-top:15px;
+width:100%;
+padding:12px;
+background:#ff6b00;
+border:none;
+color:white;
+font-weight:600;
+border-radius:5px;
+cursor:pointer;
+}
+
+/* WhatsApp Button */
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:12px 15px;
+border-radius:50px;
+text-decoration:none;
+font-size:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<div>
+<div class="logo">The Local Shop</div>
+<div class="tagline">Fresh finds, best price</div>
+</div>
+</header>
+
+<div class="cart-icon" onclick="toggleCart()">
+🛒
+<div class="cart-count" id="cartCount">0</div>
+</div>
+
+<section class="hero">
+<div>
+<h1>Welcome to The Local Shop</h1>
+<br>
+<a href="#products" class="shop-btn">Shop Now</a>
+</div>
+</section>
+
+<section id="products" class="products">
+
+<h2>Our Products</h2>
+
+<div class="carousel">
+
+<div class="product">
+<img src="https://i.ibb.co/yFr0P33p/image.jpg">
+<h4>Fresh Item</h4>
+<p class="price">₹120</p>
+<button class="add-btn" onclick="addToCart('Fresh Item',120)">Add to Cart</button>
+</div>
+
+<div class="product">
+<img src="https://i.ibb.co/chKzpf73/image.jpg">
+<h4>Daily Product</h4>
+<p class="price">₹90</p>
+<button class="add-btn" onclick="addToCart('Daily Product',90)">Add to Cart</button>
+</div>
+
+<div class="product">
+<img src="https://i.ibb.co/PG9tSjFw/image.jpg">
+<h4>Special Item</h4>
+<p class="price">₹150</p>
+<button class="add-btn" onclick="addToCart('Special Item',150)">Add to Cart</button>
+</div>
+
+</div>
+
+</section>
+
+<div class="cart" id="cart">
+
+<h3>Your Cart</h3>
+
+<div id="cartItems"></div>
+
+<form class="order-form" id="orderForm">
+
+<input type="text" id="customerName" placeholder="Your Name" required>
+
+<input type="tel" id="customerPhone" placeholder="Phone Number" required>
+
+<button class="send-btn" type="submit">
+Send Order
+</button>
+
+</form>
+
+</div>
+
+<a class="whatsapp" href="https://wa.me/9999999999">WhatsApp</a>
+
+<script>
+
+(function(){
+emailjs.init("YOUR_PUBLIC_KEY");
+})();
+
+let cart=[];
+let cartCount=document.getElementById("cartCount");
+let cartItems=document.getElementById("cartItems");
+
+function addToCart(name,price){
+
+cart.push({name,price});
+
+updateCart();
+
+}
+
+function updateCart(){
+
+cartCount.innerText=cart.length;
+
+cartItems.innerHTML="";
+
+cart.forEach(item=>{
+cartItems.innerHTML+=`<div class="cart-item">${item.name} - ₹${item.price}</div>`;
+});
+
+}
+
+function toggleCart(){
+
+document.getElementById("cart").classList.toggle("active");
+
+}
+
+document.getElementById("orderForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let name=document.getElementById("customerName").value;
+let phone=document.getElementById("customerPhone").value;
+
+let items=cart.map(i=>`${i.name} ₹${i.price}`).join(", ");
+
+let templateParams={
+customer_name:name,
+customer_phone:phone,
+order_items:items
+};
+
+emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",templateParams)
+.then(function(){
+
+alert("Order Sent Successfully!");
+
+cart=[];
+updateCart();
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
